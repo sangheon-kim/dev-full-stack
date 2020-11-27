@@ -1,0 +1,21 @@
+<svg class="shapes" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .shape:nth-of-type(1) {
+      fill: #ddd;
+    }
+
+    .shape:nth-of-type(2),
+    .shape:nth-of-type(3),
+    .shape:nth-of-type(4) {
+      fill: black;
+    }
+
+    ellipse {
+      fill: #fff000;
+    }
+  </style>
+  <rect class="shape" x="0" y="0" width="15" height="15" rx="3" ry="3" />
+  <rect class="shape" x="18" y="0" width="15" height="15" rx="3" ry="3" />
+  <rect class="shape" x="0" y="18" width="15" height="15" rx="3" ry="3" />
+  <rect class="shape" x="18" y="18" width="15" height="15" rx="3" ry="3" />
+</svg>

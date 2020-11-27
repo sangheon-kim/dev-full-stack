@@ -1,0 +1,30 @@
+@import "~assets/styles";
+
+.App {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  min-width: 1200px;
+  height: 80%;
+  background-color: $themeColor;
+  border-radius: 16px;
+  margin: auto;
+  display: flex;
+
+  #Menu {
+    width: 20%;
+    min-width: 300px;
+    max-width: 300px;
+    height: 100%;
+  }
+
+  #container {
+    flex: 1;
+    background: $containerColor;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+}

@@ -1,0 +1,45 @@
+@import "~assets/styles";
+
+.MenuPannel {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+
+  h3.title {
+    color: $white;
+    font-size: 26px;
+    margin: 26px 0 26px 10px;
+  }
+
+  p.title {
+    color: #717171;
+    font-size: 14px;
+    margin: 8px 0 8px 10px;
+  }
+
+  .menu-list {
+    list-style: none;
+
+    &__item {
+      padding: 18px 10px;
+      color: $white;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      &.selected {
+        cursor: default;
+        background: #b28ef3;
+        background: -moz-linear-gradient(-45deg, #b28ef3 0%, #2989d8 50%, #8cacef 100%, #67ccec 100%);
+        background: -webkit-linear-gradient(-45deg, #b28ef3 0%, #2989d8 50%, #8cacef 100%, #67ccec 100%);
+        background: linear-gradient(135deg, #b28ef3 0%, #2989d8 50%, #8cacef 100%, #67ccec 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b28ef3', endColorstr='#67ccec',GradientType=1 );
+      }
+
+      span {
+        margin-left: 16px;
+      }
+    }
+  }
+}
