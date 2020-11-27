@@ -66,7 +66,7 @@ Object.freeze(menus);
 type Props = {};
 
 const MenuPannel: React.FC<Props> = (props) => {
-  const {} = props;
+  const [isView, setView] = React.useState(false);
   const history = useHistory();
   const [historyState, setHistoryState] = React.useState(history.location.pathname);
 
@@ -75,6 +75,12 @@ const MenuPannel: React.FC<Props> = (props) => {
       setHistoryState(location.pathname);
     });
   }, [history]);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setView(true);
+    }, 2000);
+  }, []);
 
   return (
     <div className="MenuPannel">

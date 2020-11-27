@@ -9,10 +9,8 @@ import MainContainer from "Containers/MainContainer";
 import MenuPannel from "Components/MenuPannel/MenuPannel";
 
 function App() {
-  // const [] = React.useState('/')
-
   return (
-    <div className="App">
+    <div className={`App`}>
       <Router>
         <div id="Menu">
           <MenuPannel />
