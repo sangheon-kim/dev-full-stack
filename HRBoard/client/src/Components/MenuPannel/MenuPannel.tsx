@@ -4,6 +4,7 @@ import { FaMoneyCheckAlt, FaUser } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import { IoMdStats, IoMdDocument, IoMdChatboxes } from "react-icons/io";
 import { BiSupport } from "react-icons/bi";
+import { RiTodoFill } from "react-icons/ri";
 import { useHistory } from "react-router-dom";
 import "./MenuPannel.scss";
 
@@ -27,38 +28,38 @@ const menus = {
       icon: <MdDashboard />,
     },
     {
-      text: "Finances",
-      key: "finance",
-      icon: <FaMoneyCheckAlt />,
+      text: "Todos",
+      key: "todo",
+      icon: <RiTodoFill />,
     },
-    {
-      text: "People",
-      key: "people",
-      icon: <FaUser />,
-    },
-    {
-      text: "Statistics",
-      key: "stat",
-      icon: <IoMdStats />,
-    },
-    {
-      text: "Documents",
-      key: "docs",
-      icon: <IoMdDocument />,
-    },
+    // {
+    //   text: "People",
+    //   key: "people",
+    //   icon: <FaUser />,
+    // },
+    // {
+    //   text: "Statistics",
+    //   key: "stat",
+    //   icon: <IoMdStats />,
+    // },
+    // {
+    //   text: "Documents",
+    //   key: "docs",
+    //   icon: <IoMdDocument />,
+    // },
   ],
-  Other: [
-    {
-      text: "Chat",
-      key: "chat",
-      icon: <IoMdChatboxes />,
-    },
-    {
-      text: "Support",
-      key: "Support",
-      icon: <BiSupport />,
-    },
-  ],
+  // Other: [
+  //   // {
+  //   //   text: "Chat",
+  //   //   key: "chat",
+  //   //   icon: <IoMdChatboxes />,
+  //   // },
+  //   // {
+  //   //   text: "Support",
+  //   //   key: "Support",
+  //   //   icon: <BiSupport />,
+  //   // },
+  // ],
 };
 
 Object.freeze(menus);
@@ -84,7 +85,7 @@ const MenuPannel: React.FC<Props> = (props) => {
 
   return (
     <div className="MenuPannel">
-      <h3 className="title">HBoard</h3>
+      <h3 className="title">SH Board</h3>
       <div className="section section1">
         {Object.keys(menus as Menus).map((item) => {
           return (

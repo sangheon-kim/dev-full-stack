@@ -1,0 +1,20 @@
+.DashBoardContainer {
+  flex: 1;
+  height: 500px;
+  background: #000;
+  margin: 8px;
+  min-width: 30%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5%;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 16px;
+
+  &.large {
+    min-width: 800px;
+  }
+
+  &.medium {
+    min-width: 400px;
+  }
+}

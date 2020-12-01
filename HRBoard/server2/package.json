@@ -1,0 +1,26 @@
+{
+  "name": "server2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --watch ts-node -w ./src/"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.9",
+    "@types/express-jwt": "^0.0.42",
+    "@types/node": "^14.14.10",
+    "@types/sequelize": "^4.28.9",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.19.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "graphql-tools": "^7.0.2",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5"
+  }
+}

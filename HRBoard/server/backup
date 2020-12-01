@@ -1,0 +1,62 @@
+// USER MODEL
+class User extends Model {}
+User.init(
+  {
+    // parameters
+    id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: Sequelize.STRING,
+    },
+    rollNo: {
+      type: Sequelize.INTEGER,
+    },
+    status: {
+      type: Sequelize.ENUM("0", "1"),
+      defaultValue: "1",
+    },
+  },
+  {
+    timestamps: false,
+    modelName: "tbl_users",
+    sequelize,
+  }
+);
+
+// Book MODEL
+class Book extends Model {}
+Book.init(
+  {
+    // parameters
+    id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    amount: {
+      type: Sequelize.INTEGER,
+    },
+    status: {
+      type: Sequelize.ENUM("0", "1"),
+      defaultValue: 1,
+    },
+  },
+  {
+    timestamps: false,
+    modelName: "tbl_books",
+    sequelize,
+  }
+);
