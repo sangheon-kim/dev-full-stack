@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .star_wrapper {
+      position: relative;
+    }
+    .star_wrapper div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 50px;
+      background-repeat: no-repeat;
+      background-size: 250px 50px;
+    }
+    .empty_star, .full_star {
+      width: 250px;
+    }
+    .empty_star {
+      background-image: url("empty.png");
+    }
+
+    .full_star {
+      z-index: 2;
+      background-image: url("fullStar.png");
+      width: 0px;
+    }
+
+    .button_wrapper {
+      position: absolute;
+      left: 300px;
+    }
+    button {
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="point">0</h2>
+  <div class="star_wrapper">
+    <div class="full_star"></div>
+    <div class="empty_star"/></div>
+  </div>
+  <div class="button_wrapper">
+    <button type="button" class="increase">점수 증가</button>
+    <button type="button" class="decrease">점수 감소</button>
+  </div>
+  <script>
+    const $increaseBtn = document.querySelector(".increase"); // 0.5점씩 증가
+    const $decreaseBtn = document.querySelector(".decrease"); // 0.5점씩 감소
+    const $fullStar = document.querySelector(".full_star");
+    const $emptyStar = document.querySelector(".empty_star");
+    const $point = document.querySelector("#point");
+    let point = 0;
+    let maxPoint = 10;
+
+    $increaseBtn.addEventListener("click", function() {
+      if (point < 10) {
+        point += 1;
+      }
+
+      $point.textContent = point;
+      let currentRate = Number(point / maxPoint).toFixed(1);
+      $fullStar.style.width = currentRate * $emptyStar.clientWidth + 'px'
+    });
+
+    $decreaseBtn.addEventListener("click", function() {
+      if (point > 0) {
+        point -= 1;
+      }
+      $point.textContent = point;
+      let currentRate = Number(point / maxPoint).toFixed(1);
+      $fullStar.style.width = currentRate * $emptyStar.clientWidth + 'px'
+    });
+  </script>
+</body>
+</html>

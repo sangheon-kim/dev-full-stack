@@ -1,16 +1,21 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import sequelize from "../db";
 
-class User extends Model {
+enum Status {
+  "sold_out",
+  "processing",
+}
+
+class Book extends Model {
   public id!: number;
   public name!: string;
-  public email!: string;
-  public password!: string | null;
+  public amount!: number;
+  public status!: Status;
   public created_at!: Date;
   public updated_at!: Date;
 }
 
-User.init(
+Book.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -18,16 +23,15 @@ User.init(
       primaryKey: true,
     },
     name: {
-      type: new DataTypes.STRING(128),
+      type: DataTypes.STRING(128),
       allowNull: false,
     },
-    email: {
-      type: new DataTypes.STRING(100),
-      allowNull: false,
+    amount: {
+      type: DataTypes.INTEGER(),
     },
-    password: {
-      type: new DataTypes.STRING(300),
-      allowNull: true,
+    status: {
+      type: DataTypes.ENUM("0", "1"),
+      defaultValue: 1,
     },
     created_at: {
       type: DataTypes.DATE,
@@ -39,12 +43,11 @@ User.init(
     },
   },
   {
-    tableName: "User",
-    timestamps: false,
+    tableName: "Book",
     sequelize,
   }
 );
 
-export default User;
+export default Book;
 
 sequelize.sync();

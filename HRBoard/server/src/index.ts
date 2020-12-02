@@ -2,7 +2,7 @@ import path from "path";
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
 import app from "./server";
 import bodyParser from "body-parser";
-const Sequelize = require("sequelize");
+
 import appRoutes from "./routes";
 const PORT = 8087;
 import "./db";

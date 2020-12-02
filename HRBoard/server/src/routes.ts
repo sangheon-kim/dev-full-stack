@@ -2,7 +2,7 @@ import { makeErrorResponse, makeSucessedResponse } from "./utils";
 import express, { Response, Request } from "express";
 
 const router = express.Router();
-import model from "./Model";
+import model from "./model";
 import sequelize from "./db";
 
 // create some data to table
