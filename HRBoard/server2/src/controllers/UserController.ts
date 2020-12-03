@@ -1,13 +1,28 @@
 import { Request, Response } from "express";
-import Model from "../models";
-import { makeErrorResponse, makeSucessedResponse } from "../utils";
 
-const createUser = (req: Request, res: Response) => {
-  Model.User.create(req.body)
-    .then(() => makeSucessedResponse({ res }))
-    .catch((err: Error) => makeErrorResponse({ err, res }));
+import { makeErrorResponse, makeSucessedResponse } from "../utils";
+import { user } from "./common";
+
+interface ICreateUserInput {
+  name: String;
+  email: String;
+  password?: String;
+}
+
+async function createQuery(request: ICreateUserInput) {
+  return user.create(request);
+}
+
+const createUserRest = async (req: Request, res: Response) => {
+  try {
+    await createQuery(req.body);
+    makeSucessedResponse({ res });
+  } catch (err) {
+    makeErrorResponse({ res, err });
+  }
 };
 
 export default {
-  createUser,
+  createUserRest,
+  createQuery,
 };
