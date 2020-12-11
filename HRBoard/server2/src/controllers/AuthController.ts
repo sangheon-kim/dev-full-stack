@@ -3,9 +3,11 @@ import Model from "../models";
 import jwt from "jsonwebtoken";
 import { jwtSecret } from "../app";
 import { makeErrorResponse, makeSucessedResponse } from "../utils";
+import Auth from "../services/AuthService";
 
-const login = (req: Request, res: Response) => {
+const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
+
   Model.User.findOne({ where: { email, password } })
     .then((result) => {
       if (!!result) {
@@ -19,6 +21,10 @@ const login = (req: Request, res: Response) => {
     .catch((err: Error) => {
       makeErrorResponse({ err, res });
     });
+};
+
+const join = async (req: Request, res: Response) => {
+  const {} = req.body;
 };
 
 export default {

@@ -1,10 +1,19 @@
 import { Response } from "express";
 
-export const makeErrorResponse = ({ err, res, message }: { err: Error; res: Response; message?: string }) => {
-  console.log(err);
-  res.status(!!message ? 400 : 500).json({
+export const makeErrorResponse = ({
+  err,
+  res,
+  message,
+  clientError,
+}: {
+  err: Error;
+  res: Response;
+  message?: string;
+  clientError?: boolean;
+}) => {
+  res.status(!!clientError ? 400 : 500).json({
     status: "Error",
-    message: !!message ? message : err,
+    message: !!message ? message : err.message,
   });
 };
 
@@ -36,7 +45,7 @@ export const makeSucessedResponse = ({
 
 export const makeResponse = (err: Error, res: Response, data: any) => {
   if (err) {
-    console.error(err);
+    // console.error(err);
     return makeErrorResponse({ err, res });
   }
 
