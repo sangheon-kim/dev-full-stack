@@ -4,7 +4,15 @@ type Query {
 }
 
 type Mutation {
-  createUser(input: CreateUserInput): Boolean
+  createUser(input: CreateUserInput): Boolean!
+  login(input: LoginInput): LoginResult
+}
+
+type LoginResult {
+  id: ID!
+  name: String
+  email: String
+  accessToken: String
 }
 
 type User {
@@ -21,4 +29,9 @@ input CreateUserInput {
   name: String!
   email: String!
   password: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }

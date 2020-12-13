@@ -13,3 +13,17 @@ app.use("/", appRoutes);
 app.listen(PORT, () => {
   console.log("App is Running");
 });
+
+const array = [1, 2, 3];
+
+const forEachResult = array.forEach((item) => {
+  console.log(item);
+  return "erin zzang";
+});
+console.log(forEachResult);
+
+const result = array.map((item) => {
+  console.log(item);
+  return `erin-${item}`;
+});
+console.log(result);

@@ -36,7 +36,7 @@ class AuthService {
    * @param {*} param
    * @memberof AuthService
    */
-  public createUser(params: ICreateUserInput) {
+  public createUser(params: { [key: string]: any }): Promise<{ [key: string]: any }> {
     return new Promise(async (resolve, reject) => {
       model.User.create(params)
         .then(() => {
@@ -55,9 +55,10 @@ class AuthService {
    * @returns
    * @memberof AuthService
    */
-  public async emailDuplicateCheck(
-    params: ICreateUserInput
-  ): Promise<{ [key: string]: any } | Error> {
+  public async emailDuplicateCheck(params: {
+    [key: string]: any;
+  }): Promise<{ [key: string]: any } | Error> {
+    console.log("emailDuplicateCheck", params);
     const { email } = params;
     return new Promise((resolve, reject) => {
       model.User.findOne({ where: { email } })
@@ -109,7 +110,8 @@ class AuthService {
    * @memberof AuthService
    */
   public hashPassword(params: { [key: string]: any }): Promise<{ [key: string]: any } | Error> {
-    return new Promise((resolve, reject) => {
+    console.log("hashPassword", params);
+    return new Promise(async (resolve, reject) => {
       crypto.pbkdf2(
         params.password,
         process.env.PASSWORD_SECRET as string,

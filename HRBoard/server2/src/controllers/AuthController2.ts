@@ -21,7 +21,7 @@ class AuthController {
    * @param {Response} res
    * @memberof AuthController
    */
-  login(req: Request, res: Response) {
+  async login(req: Request, res: Response) {
     const makeResponse = (err: null | Error, data: null | any) => {
       if (err) {
         makeErrorResponse({ res, err });
@@ -60,7 +60,7 @@ class AuthController {
    * @param {Response} res
    * @memberof AuthController
    */
-  join(req: Request, res: Response): void {
+  async join(req: Request, res: Response) {
     const makeResponse = (err: null | Error, __: any) => {
       if (err) {
         makeErrorResponse({ res, err });

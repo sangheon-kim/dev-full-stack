@@ -31,23 +31,30 @@ class AsyncLib {
    * @param {*} [cb]
    * @memberof AsyncLib
    */
-  shWaterFall(initial: { [key: string]: any }, callbackArray: Array<(params?: any) => any>, cb?: any) {
+  shWaterFall(
+    initial: { [key: string]: any },
+    callbackArray: Array<(params?: any) => any>,
+    cb?: any
+  ) {
     const g: Generator = function* (this: AsyncLib) {
       this.constant(initial);
       for (let callback of callbackArray) {
-        yield (async (genObj: Generator, promise: (params?: { [key: string]: any }) => Promise<any>) => {
+        yield (async (
+          genObj: Generator,
+          promise: (params?: { [key: string]: any }) => Promise<any>
+        ) => {
           try {
             const result = await promise(this.state);
             this.state = result;
             genObj.next(result);
           } catch (err) {
             console.log("errorZZz", err);
-            cb(err, null);
+            return cb(err, null);
           }
         })(g, callback);
       }
 
-      cb(null, this.state);
+      return cb(null, this.state);
     }.call(new AsyncLib());
 
     g.next();
