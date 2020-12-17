@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
-import Model from "../models";
 import jwt from "jsonwebtoken";
 import { jwtSecret } from "../app";
 import AuthService from "../services/AuthService2";
-import Validation from "../utils/validation";
 import ValidationParams from "../utils/validationParams";
 import { makeSucessedResponse, makeErrorResponse } from "../utils";
 import async from "../utils/asyncLib";
