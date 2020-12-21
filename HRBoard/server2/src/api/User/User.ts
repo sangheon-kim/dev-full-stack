@@ -1,5 +1,5 @@
 import model from "../../models";
-import AuthService from "../../services/AuthService2";
+import AuthService from "../../services/AuthService";
 import async from "../../utils/asyncLib";
 import ValidationParams from "../../utils/validationParams";
 import jwt from "jsonwebtoken";

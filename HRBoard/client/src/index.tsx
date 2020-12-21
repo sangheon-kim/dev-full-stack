@@ -75,5 +75,5 @@ function postStatic(staticObject: { [key: string]: any }) {
   });
 }
 
-reportWebVitals(postStatic);
+// reportWebVitals(postStatic);
 // reportWebVitals(console.log);

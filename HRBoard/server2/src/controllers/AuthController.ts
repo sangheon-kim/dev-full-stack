@@ -1,32 +1,86 @@
 import { Request, Response } from "express";
-import Model from "../models";
 import jwt from "jsonwebtoken";
 import { jwtSecret } from "../app";
-import { makeErrorResponse, makeSucessedResponse } from "../utils";
-import Auth from "../services/AuthService";
+import AuthService from "../services/AuthService";
+import ValidationParams from "../utils/validationParams";
+import { makeSucessedResponse, makeErrorResponse } from "../utils";
+import async from "../utils/asyncLib";
 
-const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+class AuthController {
+  constructor() {
+    this.join = this.join.bind(this);
+    this.login = this.login.bind(this);
+  }
 
-  Model.User.findOne({ where: { email, password } })
-    .then((result) => {
-      if (!!result) {
-        // jsonwebtoken 생성한다.
-        const token = jwt.sign({ sub: result.id }, jwtSecret);
-        makeSucessedResponse({ res, data: { token }, cookie: { accessToken: token, option: { maxAge: 90000, httpOnly: true } } });
-      } else {
-        res.status(401).json({ status: "Error", message: "ID 비밀번호가 일치하지 않습니다." });
+  /**
+   *
+   * @description 로그인 관련 컨트롤러
+   * @date 2020-12-11
+   * @param {Request} req
+   * @param {Response} res
+   * @memberof AuthController
+   */
+  async login(req: Request, res: Response) {
+    const makeResponse = (err: null | Error, data: null | any) => {
+      if (err) {
+        makeErrorResponse({ res, err });
+        return;
       }
-    })
-    .catch((err: Error) => {
-      makeErrorResponse({ err, res });
-    });
-};
+      const token = jwt.sign({ sub: data.id }, jwtSecret);
+      const params = {
+        ...data["result"],
+        accessToken: token,
+      };
+      makeSucessedResponse({
+        res,
+        data: params,
+        cookie: { accessToken: token, option: { maxAge: 90000, httpOnly: true } },
+      });
+    };
 
-const join = async (req: Request, res: Response) => {
-  const {} = req.body;
-};
+    async.shWaterFall(
+      req.body,
+      [
+        ValidationParams.validParams,
+        ValidationParams.validEmail,
+        AuthService.hashPassword,
+        AuthService.matchUser,
+      ],
+      makeResponse
+    );
+  }
 
-export default {
-  login,
-};
+  /**
+   *
+   * @description 회원가입 관련 컨트롤러
+   * @date 2020-12-09
+   * @author Sangheon Kim
+   * @param {Request} req
+   * @param {Response} res
+   * @memberof AuthController
+   */
+  async join(req: Request, res: Response) {
+    const makeResponse = (err: null | Error, __: any) => {
+      if (err) {
+        makeErrorResponse({ res, err });
+        return;
+      }
+
+      makeSucessedResponse({ res });
+    };
+
+    async.shWaterFall(
+      req.body,
+      [
+        ValidationParams.validParams,
+        ValidationParams.validEmail,
+        AuthService.emailDuplicateCheck,
+        AuthService.hashPassword,
+        AuthService.createUser,
+      ],
+      makeResponse
+    );
+  }
+}
+
+export default new AuthController();

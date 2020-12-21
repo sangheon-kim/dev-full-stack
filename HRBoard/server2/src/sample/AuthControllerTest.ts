@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Model from "../models";
 import jwt from "jsonwebtoken";
 import AuthService from "../services/AuthService";
-import AuthService2 from "../services/AuthService2";
+import AuthService2 from "../services/AuthService";
 import Validation from "../utils/validation";
 import ValidationParams from "../utils/validationParams";
 import { makeSucessedResponse, makeErrorResponse } from "../utils";
@@ -26,7 +26,11 @@ class AuthController {
   async join(req: Request, res: Response) {
     const { email } = req.body;
     try {
-      Promise.allSettled([Validation.validParams(req.body), Validation.validEmail(email), AuthService.createUser(req.body)]);
+      Promise.allSettled([
+        Validation.validParams(req.body),
+        Validation.validEmail(email),
+        AuthService.createUser(req.body),
+      ]);
 
       makeSucessedResponse({ res });
     } catch (err) {
@@ -53,7 +57,15 @@ class AuthController {
     }
 
     const g: Generator = (function* (params) {
-      yield* iter([ValidationParams.validParams, ValidationParams.validEmail, AuthService2.hashPassword, AuthService2.createUser], params);
+      yield* iter(
+        [
+          ValidationParams.validParams,
+          ValidationParams.validEmail,
+          AuthService2.hashPassword,
+          AuthService2.createUser,
+        ],
+        params
+      );
     })(req.body);
 
     try {
@@ -89,7 +101,12 @@ class AuthController {
 
     async.shWaterFall(
       req.body,
-      [ValidationParams.validParams, ValidationParams.validEmail, AuthService2.hashPassword, AuthService2.createUser],
+      [
+        ValidationParams.validParams,
+        ValidationParams.validEmail,
+        AuthService2.hashPassword,
+        AuthService2.createUser,
+      ],
       makeResponse
     );
   }
