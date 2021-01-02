@@ -6,12 +6,12 @@ export const makeErrorResponse = ({
   message,
   clientError,
 }: {
-  err: Error;
+  err: Error | any;
   res: Response;
   message?: string;
   clientError?: boolean;
 }) => {
-  res.status(!!clientError ? 400 : 500).json({
+  res.status(!!clientError ? 400 : err.customStatus ? err.customStatus : 500).json({
     status: "Error",
     message: !!message ? message : err.message,
   });

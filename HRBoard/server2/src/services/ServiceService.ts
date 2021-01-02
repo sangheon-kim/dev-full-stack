@@ -1,7 +1,8 @@
 import path from "path";
 import dotenv from "dotenv";
 import model from "../models";
-import { makeSucessedResponse } from "../utils";
+import { makeSucessedResponse } from "../utils/utils";
+import CustomError from "../utils/customError";
 
 dotenv.config({ path: path.join(__dirname, "../../.env") });
 
@@ -33,7 +34,7 @@ class ServiceService {
    */
   public getService(params: { [key: string]: any }): Promise<{ [key: string]: any }> {
     return new Promise((resolve, reject) => {
-      model.User.findOne({ where: { id: params.id } }).then((result) => {
+      model.Services.findOne({ where: { id: params.id } }).then((result) => {
         if (!!result) {
           const { id, name, url } = result.get();
           params["service"] = {
@@ -44,7 +45,7 @@ class ServiceService {
 
           resolve(params);
         } else {
-          reject(new Error("don't exist Service"));
+          reject(new CustomError(400, "don't exist Service"));
         }
       });
     });
@@ -111,7 +112,7 @@ class ServiceService {
           if (result > 0) {
             resolve(params);
           }
-          reject(new Error("don't exist Service"));
+          reject(new CustomError(400, "don't exist Service"));
         })
         .catch((err) => reject(err));
     });

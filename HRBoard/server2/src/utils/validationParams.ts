@@ -1,3 +1,5 @@
+import CustomError from "./customError";
+
 /**
  *
  * @name Validation
@@ -11,7 +13,7 @@ class Validation {
     console.log("validParams", params);
     return new Promise((resolve, reject) => {
       if (!(Object.keys(params).length > 0)) {
-        reject(new Error("Param is Null"));
+        reject(new CustomError(400, "Param is Null"));
       }
 
       resolve(params);
@@ -24,7 +26,7 @@ class Validation {
 
     return new Promise((resolve, reject) => {
       if (!reg.test(params.email)) {
-        reject(new Error("Invalid Email"));
+        reject(new CustomError(400, "Invalid Email"));
       }
       resolve(params);
     });

@@ -4,6 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 import model from "../models";
 import jwt from "jsonwebtoken";
+import CustomError from "../utils/customError";
 
 dotenv.config({ path: path.join(__dirname, "../../.env") });
 
@@ -65,7 +66,7 @@ class AuthService {
       model.User.findOne({ where: { email } })
         .then((result) => {
           if (!!result) {
-            reject(new Error("Email is exists"));
+            reject(new CustomError(400, "Email is exists"));
           } else {
             resolve(params);
           }
@@ -94,7 +95,7 @@ class AuthService {
             };
             resolve(params);
           } else {
-            reject(new Error("No Match User"));
+            reject(new CustomError(400, "No Match User"));
           }
         })
         .catch((err: Error) => {
@@ -131,8 +132,11 @@ class AuthService {
   public decodedToken(params: { [key: string]: any }): Promise<{ [key: string]: any }> {
     return new Promise((resolve, reject) => {
       const decodedToken: any = jwt.verify(params["token"], jwtSecret);
-      params["userId"] = decodedToken.sub;
 
+      if (!decodedToken.sub) {
+        reject(new CustomError(401, "Unauthorized User"));
+      }
+      params["userId"] = decodedToken.sub;
       resolve(params);
     });
   }

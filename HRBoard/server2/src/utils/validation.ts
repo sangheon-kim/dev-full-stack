@@ -1,3 +1,5 @@
+import CustomError from "./customError";
+
 /**
  *
  * @name Validation
@@ -9,7 +11,7 @@ class Validation {
 
   public validParams(params: { [key: string]: any }): void {
     if (!(Object.keys(params).length > 0)) {
-      throw new Error("Param is Null");
+      throw new CustomError(400, "Param is Null");
     }
   }
 
@@ -17,7 +19,7 @@ class Validation {
     var reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
     if (!reg.test(email)) {
-      throw new Error("Invalid Email");
+      throw new CustomError(400, "Invalid Email");
     }
   }
 }

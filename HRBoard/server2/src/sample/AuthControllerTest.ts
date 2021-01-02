@@ -5,7 +5,7 @@ import AuthService from "../services/AuthService";
 import AuthService2 from "../services/AuthService";
 import Validation from "../utils/validation";
 import ValidationParams from "../utils/validationParams";
-import { makeSucessedResponse, makeErrorResponse } from "../utils";
+import { makeSucessedResponse, makeErrorResponse } from "../utils/utils";
 import async from "../utils/asyncLib";
 
 class AuthController {

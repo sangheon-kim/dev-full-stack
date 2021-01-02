@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { jwtSecret } from "../app";
 import AuthService from "../services/AuthService";
 import ValidationParams from "../utils/validationParams";
-import { makeSucessedResponse, makeErrorResponse } from "../utils";
+import { makeSucessedResponse, makeErrorResponse } from "../utils/utils";
 import async from "../utils/asyncLib";
 
 class AuthController {
@@ -26,7 +26,7 @@ class AuthController {
         makeErrorResponse({ res, err });
         return;
       }
-      const token = jwt.sign({ sub: data.id }, jwtSecret);
+      const token = jwt.sign({ sub: data.result.id }, jwtSecret);
       const params = {
         ...data["result"],
         accessToken: token,
