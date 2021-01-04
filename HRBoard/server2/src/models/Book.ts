@@ -44,6 +44,7 @@ Book.init(
   },
   {
     tableName: "Book",
+    timestamps: false,
     sequelize,
   }
 );

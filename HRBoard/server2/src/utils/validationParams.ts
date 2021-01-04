@@ -10,7 +10,6 @@ class Validation {
   constructor() {}
 
   public validParams(params: any): Promise<{ [key: string]: any }> {
-    console.log("validParams", params);
     return new Promise((resolve, reject) => {
       if (!(Object.keys(params).length > 0)) {
         reject(new CustomError(400, "Param is Null"));
@@ -21,7 +20,6 @@ class Validation {
   }
 
   public validEmail(params: { [key: string]: any }): Promise<{ [key: string]: any }> {
-    console.log("validEmail", params);
     var reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
     return new Promise((resolve, reject) => {

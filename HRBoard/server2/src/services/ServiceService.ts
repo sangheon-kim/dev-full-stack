@@ -1,7 +1,6 @@
 import path from "path";
 import dotenv from "dotenv";
 import model from "../models";
-import { makeSucessedResponse } from "../utils/utils";
 import CustomError from "../utils/customError";
 
 dotenv.config({ path: path.join(__dirname, "../../.env") });
@@ -60,7 +59,7 @@ class ServiceService {
    */
   public getServices(params: { [key: string]: any }): Promise<{ [key: string]: any }> {
     return new Promise((resolve, reject) => {
-      model.User.findAndCountAll()
+      model.Services.findAndCountAll()
         .then((result) => {
           params["services"] = result;
 
@@ -81,7 +80,7 @@ class ServiceService {
     const { id, name, url } = params;
 
     return new Promise((resolve, reject) => {
-      model.User.update(
+      model.Services.update(
         {
           name,
           url,
@@ -107,12 +106,28 @@ class ServiceService {
   public deleteService(params: { [key: string]: any }): Promise<{}> {
     const { id } = params;
     return new Promise((resolve, reject) => {
-      model.User.destroy({ where: { id } })
+      model.Services.destroy({ where: { id } })
         .then((result) => {
           if (result > 0) {
             resolve(params);
           }
           reject(new CustomError(400, "don't exist Service"));
+        })
+        .catch((err) => reject(err));
+    });
+  }
+
+  public matchServiceUrl(url: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      model.Services.findOne({ where: { url } })
+        .then((result) => {
+          const url = result?.get()["id"];
+
+          if (!!url) {
+            resolve(url);
+          } else {
+            reject(new CustomError(400, "don't know your Service"));
+          }
         })
         .catch((err) => reject(err));
     });

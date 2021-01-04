@@ -35,6 +35,7 @@ Services.init(
   },
   {
     tableName: "Services",
+    timestamps: false,
     sequelize,
   }
 );

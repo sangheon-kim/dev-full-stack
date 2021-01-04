@@ -8,7 +8,6 @@ import cookieControl from "../utils/cookieControl";
 
 class ServiceController {
   constructor() {
-    // this.parseCookies = this.parseCookies.bind(this);
     this.createService = this.createService.bind(this);
   }
 
@@ -85,9 +84,35 @@ class ServiceController {
       token,
     };
 
+    req.body["id"] = req.params.id;
+
     async.shWaterFall(
       req.body,
-      [AuthService.decodedToken, validationParams.validParams, Service.createService],
+      [AuthService.decodedToken, validationParams.validParams, Service.deleteService],
+      makeResponse
+    );
+  }
+
+  updateService(req: Request, res: Response) {
+    const makeResponse = (err: null | Error, data: null | any) => {
+      if (err) {
+        makeErrorResponse({ res, err });
+        return;
+      }
+
+      makeSucessedResponse({ res });
+    };
+
+    const token = cookieControl.getCookieValue(req.headers.cookie, "accessToken");
+
+    req.body = {
+      ...req.body,
+      token,
+    };
+
+    async.shWaterFall(
+      req.body,
+      [AuthService.decodedToken, validationParams.validParams, Service.updateService],
       makeResponse
     );
   }
